@@ -23,6 +23,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+    .state('login', {
+      url: "/login",
+      templateUrl: "templates/login.html",
+      controller: 'LoginCtrl'
+    })
+
     .state('app', {
       url: "/app",
       abstract: true,
@@ -30,43 +36,65 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       controller: 'AppCtrl'
     })
 
-    .state('app.search', {
-      url: "/search",
+    .state('app.home', {
+      url: "/home",
       views: {
         'menuContent' :{
-          templateUrl: "templates/search.html"
+          templateUrl: "templates/home.html"
         }
       }
     })
 
-    .state('app.browse', {
-      url: "/browse",
+    .state('app.settings', {
+      url: "/settings",
       views: {
         'menuContent' :{
-          templateUrl: "templates/browse.html"
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
+          templateUrl: "templates/settings.html"
         }
       }
     })
 
-    .state('app.single', {
-      url: "/playlists/:playlistId",
+    .state('app.matches', {
+      url: "/matches",
       views: {
         'menuContent' :{
-          templateUrl: "templates/playlist.html",
-          controller: 'PlaylistCtrl'
+          templateUrl: "templates/matches.html",
+          controller: 'MatchesCtrl'
+        }
+      }
+    })
+
+    .state('app.match', {
+      url: "/match/:screen_name",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/match.html",
+          controller: 'MatchCtrl'
+        }
+      }
+    })
+
+    .state('app.conversations', {
+      url: "/conversations",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/conversations.html",
+          controller: 'ConversationsCtrl'
+        }
+      }
+    })
+
+    .state('app.conversation', {
+      url: "/conversation/:screen_name",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/conversation.html",
+          controller: 'ConversationCtrl'
         }
       }
     });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/login');
 });
 
