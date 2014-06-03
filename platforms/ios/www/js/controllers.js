@@ -99,9 +99,18 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 .controller('ConversationCtrl', ['$rootScope', '$scope', '$http', '$stateParams', function($rootScope, $scope, $http, $stateParams) {
 
-  var conversationScreenName = $stateParams.screen_name;
-  $scope.conversation = $rootScope.conversations[conversationScreenName];
-  console.log($scope.conversation);
+  // $scope.init = function(){
+    var conversationScreenName = $stateParams.screen_name;
+    $scope.conversation = $rootScope.conversations[conversationScreenName];
+    alert(JSON.stringify($scope.conversation));
+  // };
+
+  // var text;
+
+  // $watch('newMessageText', function(newV, oldV){
+  //   text = $scope.newMessageText;
+  //   alert(text);
+  // });
 
   var sendMessage = function(){
     var text = $scope.newMessageText;

@@ -1,8 +1,9 @@
-<ion-view title="{{conversation.match.name}}">
+<ion-view title="{{conversation.match.name}}" ng-init='init()'>
   <ion-content class="has-header">
-    <!-- <p>{{conversation.messages}}</p> -->
+    <p>{{conversation.messages}}</p>
     <ul class="list">
         <li class="item" ng-repeat='message in conversation.messages'>
+          <p>{{message}}</p>
           <p>{{message.recipient}}</p>
           <p class='messageIn' ng-show='(message.recipient===userData.screen_name)' ng-model='text'>{{message.text}}</p>
           <p class='messageOut' ng-hide='(message.recipient===userData.screen_name)' ng-model='text'>{{message.text}}</p>
