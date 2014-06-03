@@ -1,5 +1,27 @@
-<ion-view title="{{conversation.screen_name}}">
+<ion-view title="{{conversation.match.name}}">
   <ion-content class="has-header">
-    <h1>{{conversation}}</h1>
+    <!-- <p>{{conversation.messages}}</p> -->
+    <ul class="list">
+        <li class="item" ng-repeat='message in conversation.messages'>
+          <p>{{message.recipient}}</p>
+          <p class='messageIn' ng-show='(message.recipient===userData.screen_name)'>{{message.text}}</p>
+          <p class='messageOut' ng-hide='(message.recipient===userData.screen_name)'>{{message.text}}</p>
+          <!-- <p class='messageOut' ng-hide -->
+        </li>
+    </ul>
+
+    <div class="list">
+
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="New Message">
+        </label>
+        <button class="button button-small">
+          Send
+        </button>
+      </div>
+
+    </div>
+
   </ion-content>
 </ion-view>

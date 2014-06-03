@@ -1,12 +1,22 @@
-<ion-view title="Conversations"  hide-back-button="true">
+<ion-view title="Conversations"  hide-back-button="true" ng-init='init()'>
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ion-list>
+<!-- 
       <ion-item ng-repeat="conversation in conversations" href="#/app/conversation/{{conversation.screen_name}}">
         {{conversation.title}}
       </ion-item>
+ -->
+
+      <a class="item item-avatar" ng-repeat="conversation in conversations" href="#/app/conversation/{{conversation.match.screen_name}}">
+        <img ng-src="{{conversation.match.profile_image_url}}">
+        <h2>{{conversation.match.name}}</h2>
+        <p>{{conversation.messages[0].text}}</p>
+      </a>
+
+    
     </ion-list>
   </ion-content>
 </ion-view>

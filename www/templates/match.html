@@ -1,5 +1,37 @@
-<ion-view title="{{match.screen_name}}">
+<ion-view title="{{match.name}}">
   <ion-content class="has-header">
-    <h1>{{match}}</h1>
+
+    <div class="list card">
+
+      <div class="item item-avatar">
+        <img ng-src="{{match.profile_image_url}}">
+        <h2>{{match.name}}</h2>
+        <p>@{{match.screen_name}}</p>
+      </div>
+
+      <div class="item item-body">
+        <p>{{match.description}}</p>
+
+        <div class='commonFriends' ng-repeat='friend in match.common_friends'>
+          <button class="button button-positive">
+            @{{friend}}
+          </button>
+        </div>
+
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+          <i class="icon ion-thumbsup"></i>
+          Back
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-chatbox"></i>
+          Connect
+        </a>
+      </div>
+
+    </div>
+
   </ion-content>
 </ion-view>

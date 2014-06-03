@@ -1,1 +1,16 @@
 /* Empty. Add your own CSS if you like */
+.commonFriends
+{
+  display: inline-block;
+}
+
+.messageIn
+{
+  text-align: left;
+  color: red;
+}
+.messageOut
+{
+  text-align: right;
+  color: blue;
+}

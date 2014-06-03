@@ -52,7 +52,7 @@ angular.module('twitterLib', [])
       //process
       //@param event
       var doLoadstart = function (event) {
-        alert('TEST doLoadstart');
+        // alert('TEST doLoadstart');
         console.log("in doLoadstart " + event.url);
         var url = event.url;
         Twitter.inAppBrowserLoadHandler(url, deferredLogin);
@@ -76,7 +76,7 @@ angular.module('twitterLib', [])
         loginWindow = $window.open(_url, '_blank', 'location=no,toolbar=no');
 
         if (runningInCordova) {
-          alert('runningInCordova');
+          // alert('runningInCordova');
             loginWindow.addEventListener('loadstart', doLoadstart);
 
         } else {
@@ -94,12 +94,12 @@ angular.module('twitterLib', [])
       var storedAccessData, rawData = localStorage.getItem(twitterKey);
       // here we are going to check whether the data about user is already with us.
       if (localStorage.getItem(twitterKey) !== null) {
-        alert('TEST verified');
+        // alert('TEST verified');
         Twitter.verify(deferredLogin);
 
       } else {
         // we have no data for save user
-        alert('TEST not verified');
+        // alert('TEST not verified');
         oauth = OAuth(options);
         oauth.fetchRequestToken(openAuthoriseWindow, failureHandler);
       }
@@ -112,7 +112,7 @@ angular.module('twitterLib', [])
     //@param _url url received from the event
     //@param _deferred promise associated with login process
     inAppBrowserLoadHandler: function (_url, _deferred) {
-      alert('TEST inAppBrowserLoadHandler');
+      // alert('TEST inAppBrowserLoadHandler');
 
       // this gets the promise value from the window when running in the browser
       _deferred = _deferred || window.deferredLogin;
@@ -120,7 +120,7 @@ angular.module('twitterLib', [])
       //
       //@param _args
       var successHandler = function (_args) {
-        alert('successHandler: ' + _args);
+        // alert('successHandler: ' + _args);
         console.log(_args);
         // Saving token of access in Local_Storage
         var accessData = {};
@@ -171,7 +171,7 @@ angular.module('twitterLib', [])
     //this will verify the user and store the credentials if needed
     verify: function (_deferred) {
 
-      alert('TEST verify');
+      // alert('TEST verify');
       
       var deferred = _deferred || $q.defer();
       var storedAccessData, rawData = localStorage.getItem(twitterKey);
@@ -184,7 +184,7 @@ angular.module('twitterLib', [])
 
       oauth.get('https://api.twitter.com/1.1/account/verify_credentials.json?skip_status=true',
         function (data) {
-          alert('TEST verify resolved');
+          // alert('TEST verify resolved');
 
           $rootScope.userData = JSON.parse(data.text);
 
@@ -267,14 +267,11 @@ angular.module('twitterLib', [])
     },
     //
     //clear out the tokens stored in local storage
-    logOut: function () {
-      // alert('TEST logOut');
+    logout: function () {
       $rootScope.data = undefined;
       window.localStorage.removeItem(twitterKey);
       options.accessTokenKey = null;
       options.accessTokenSecret = null;
-      // console.log("Please authenticate to use this app");
-      // $state.go('login');
     }
   };
   return Twitter;

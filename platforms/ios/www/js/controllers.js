@@ -28,7 +28,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.init = function() {
-    alert('here');
     doGetLocation();
   };
 
@@ -39,17 +38,9 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('MatchesCtrl', ['$rootScope', '$scope', function($rootScope, $scope) {
-
-  // $rootScope.matches = {
-  //   marco: { screen_name: 'marco', title: 'Reggae', id: 1 },
-  //   peter: { screen_name: 'peter', title: 'Chill', id: 2 },
-  //   amy: { screen_name: 'amy', title: 'Dubstep', id: 3 },
-  // };
+.controller('MatchesCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
   var search = function () {
-
-    alert($rootScope.coords);
 
     $http.post('http://127.0.0.1:4568/search', {
       screen_name: $rootScope.userData.screen_name,
@@ -64,7 +55,10 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     });
   };
 
-
+  $scope.init = function(){
+    alert('MatchesCtrl init');
+    search();
+  };
 
 }])
 
@@ -76,13 +70,30 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('ConversationsCtrl', ['$rootScope', '$scope', function($rootScope, $scope) {
+.controller('ConversationsCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
-  $rootScope.conversations = {
-    marco: { screen_name: 'marco', title: 'Hello', id: 1 },
-    peter: { screen_name: 'peter', title: 'This', id: 2 },
-    amy: { screen_name: 'amy', title: 'Convo', id: 3 },
+  // $rootScope.conversations = {
+  //   marco: { screen_name: 'marco', title: 'Hello', id: 1 },
+  //   peter: { screen_name: 'peter', title: 'This', id: 2 },
+  //   amy: { screen_name: 'amy', title: 'Convo', id: 3 },
+  // };
+
+  var getMessages = function(){
+
+    $http.post('http://127.0.0.1:4568/get_messages', {screen_name: $rootScope.userData.screen_name})
+    .success(function(data){
+      alert('getMessages success');
+      $rootScope.conversations = data;
+    })
+    .error(function(data){
+      alert('ERROR: ' + data);
+    });
   };
+
+  $scope.init = function(){
+    getMessages();
+  };
+
 
 }])
 
