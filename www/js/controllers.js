@@ -72,7 +72,46 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('MatchCtrl', ['$rootScope', '$scope', '$stateParams', function($rootScope, $scope, $stateParams) {
+.controller('MatchCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', function($rootScope, $scope, $http, $state, $stateParams) {
+  
+  var matchScreenName = $stateParams.screen_name;
+  $scope.match = $rootScope.matches[matchScreenName];
+  console.log($scope.match);
+  $scope.connectBox = false;
+
+  var sendMessage = function(newMessageText){
+    var sender = $rootScope.userData.screen_name;
+
+    $http.post('http://127.0.0.1:4568/send_message', {message: {
+      sender: sender,
+      recipient: matchScreenName,
+      text: newMessageText
+    }})
+    .success(function(data){
+      // alert('sendMessage success');
+    })
+    .error(function(data){
+      alert('ERROR: ' + data);
+    });
+  };
+
+  $scope.doConnect = function(){
+    // $state.go('app.connect', {screen_name: matchScreenName});
+    $scope.connectBox = true;
+  };
+
+  $scope.closeConnect = function(){
+    $scope.connectBox = false;
+  };
+
+  $scope.doButtonSendMessage = function(newMessageText){
+    alert('send Message');
+    sendMessage(newMessageText);
+  };
+
+}])
+
+.controller('ConnectCtrl', ['$rootScope', '$scope', '$stateParams', function($rootScope, $scope, $stateParams) {
   
   var matchScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.matches[matchScreenName];

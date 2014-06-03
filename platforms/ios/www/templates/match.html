@@ -36,12 +36,22 @@
 
   </ion-content>
 
-  <div class='connect'>
-    <h2>Connect</h2>
-  </div>
-  
-  <div class="bar bar-footer bar-balanced">
+
+  <div class="bar bar-footer bar-balanced" ng-click='doConnect()'>
     <div class="title">Connect</div>
+  </div>
+
+  <div class='opaque' ng-show='connectBox'></div>
+
+  <div class='connect' ng-show='connectBox'>
+    <p>Send a message to your new friend!</p>
+    <input class='connectInput' type='text' placeholder='...' ng-model='newMessageText'>
+    <span id='leftHalf' class="bar bar-footer bar-assertive" ng-click='closeConnect()'>
+      <div class="title">Cancel</div>
+    </span>
+    <span id='rightHalf' class="bar bar-footer bar-calm" ng-click='doButtonSendMessage(newMessageText)'>
+      <div class="title">Send</div>
+    </span>
   </div>
 
 </ion-view>
