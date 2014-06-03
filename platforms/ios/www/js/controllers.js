@@ -97,10 +97,36 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('ConversationCtrl', ['$rootScope', '$scope', '$stateParams', function($rootScope, $scope, $stateParams) {
+.controller('ConversationCtrl', ['$rootScope', '$scope', '$http', '$stateParams', function($rootScope, $scope, $http, $stateParams) {
 
   var conversationScreenName = $stateParams.screen_name;
   $scope.conversation = $rootScope.conversations[conversationScreenName];
   console.log($scope.conversation);
+
+  var sendMessage = function(){
+    var text = $scope.newMessageText;
+    alert('sendMessage: ' + text);
+    // $http.post('http://127.0.0.1:4568/send_message', {
+    //   sender: $rootScope.userData.screen_name,
+    //   recipient: conversationScreenName,
+    //   text: text
+    // })
+    // .success(function(data){
+    //   alert('sendMessage success');
+    // })
+    // .error(function(data){
+    //   alert('ERROR: ' + data);
+    // });
+  };
+
+  $scope.doInputSendMessage = function(event){
+    if(event.keyCode === 13){
+      sendMessage();
+    }
+  };
+
+  $scope.doButtonSendMessage = function(){
+    sendMessage();
+  };
 
 }]);

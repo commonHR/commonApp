@@ -7,10 +7,16 @@
 .messageIn
 {
   text-align: left;
+}
+.messageIn p
+{
   color: red;
 }
 .messageOut
 {
   text-align: right;
+}
+.messageOut p
+{
   color: blue;
 }
