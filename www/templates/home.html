@@ -6,9 +6,10 @@
     <h1>Home</h1>
     <h3>Welcome back, {{userData.name}}!</h3>
 
-    <button class="button button-outline button-assertive" ng-click='doLogout()'>
-      Logout
-    </button>
-
   </ion-content>
+
+  <div class="bar bar-footer bar-assertive">
+    <div class="title" ng-click='doLogout()'>Logout</div>
+  </div>
+
 </ion-view>

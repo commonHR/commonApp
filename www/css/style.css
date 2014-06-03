@@ -20,3 +20,31 @@
 {
   color: blue;
 }
+
+/*.bar-footer
+{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+*/
+.connect
+{
+  position: fixed;
+  width: 80%;
+  height: 50%;
+  left: 10%;
+  bottom: 20%;
+
+  background-color: green;
+  opacity: 0.3;
+  z-index: 100;
+}
+
+.newMessageInput
+{ 
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}

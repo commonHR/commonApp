@@ -3,19 +3,21 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
+
     <ion-list>
 
-      <!-- <ion-item ng-repeat="match in matches" href="#/app/match/{{match.screen_name}}">
-        {{match}}
-      </ion-item>
-       -->
-
-       <a class="item item-avatar" ng-repeat="match in matches" href="#/app/match/{{match.screen_name}}">
-         <img ng-src="{{match.profile_image_url}}">
-         <h2>{{match.name}}</h2>
-         <p><span class='distance'>{{match.distance}} mi</span> - {{match.description}}</p>
-       </a>
+      <a class="item item-avatar" ng-repeat="match in matches" href="#/app/match/{{match.screen_name}}">
+        <img ng-src="{{match.profile_image_url}}">
+        <h2>{{match.name}}</h2>
+        <p><span class='distance'>{{match.distance}} mi</span> - {{match.description}}</p>
+      </a>
 
     </ion-list>
+
   </ion-content>
+
+  <div class="bar bar-footer bar-calm">
+    <div class="title">Search</div>
+  </div>
+
 </ion-view>

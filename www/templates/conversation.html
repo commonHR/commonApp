@@ -1,20 +1,20 @@
-<ion-view title="{{conversation.match.name}}" ng-init='init()'>
+<ion-view title="{{conversation.match.name}}" hide-back-button="false">
   <ion-content class="has-header">
     <ul class="list">
-        <li class="item" ng-repeat='message in conversation.messages'>
+        <li class="item" ng-repeat='message in conversation.messages.slice().reverse()'>
           <p>{{message.recipient}}</p>
           <p class='messageIn' ng-show='(message.recipient===userData.screen_name)' ng-model='text'>{{message.text}}</p>
           <p class='messageOut' ng-hide='(message.recipient===userData.screen_name)' ng-model='text'>{{message.text}}</p>
         </li>
     </ul>
 
-    <div class="list">
+<!--     <div class="list">
 
       <div class="item item-input-inset">
         <label class="item-input-wrapper">
-          <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event)' ng-model='newMessageText'>
+          <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event, newMessageText)' ng-model='newMessageText'>
         </label>
-        <button class="button button-small" ng-click='doButtonSendMessage()'>
+        <button class="button button-small" ng-click='doButtonSendMessage(newMessageText)'>
           Send
         </button>
       </div>
@@ -22,6 +22,19 @@
     </div>
 
     <h3>{{newMessageText}}</h3>
-
+ -->
   </ion-content>
+
+  <div class="newMessageInput bar-footer">
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event, newMessageText)' ng-model='newMessageText'>
+      </label>
+      <button class="button button-small" ng-click='doButtonSendMessage(newMessageText)'>
+        Send
+      </button>
+    </div>
+
+  </div>
+
 </ion-view>
