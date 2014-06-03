@@ -1,0 +1,10 @@
+.*
+!.gitignore
+*~
+*.[oa]
+*.sublime-project
+*.komodoproject
+*.esproj
+src/index.html
+chrome/
+node_modules
