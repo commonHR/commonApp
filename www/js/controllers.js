@@ -51,7 +51,11 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 .controller('MatchesCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
-  var search = function () {
+  $scope.loading = false;
+
+  $scope.search = function () {
+
+    $scope.loading = true;
 
     $http.post('http://127.0.0.1:4568/search', {
       screen_name: $rootScope.userData.screen_name,
@@ -59,15 +63,22 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       $rootScope.matches = data;
-      alert('search success');
+      // alert('search success');
     })
     .error(function(data){
       alert('ERROR: ' + data);
+    })
+    .finally(function() {
+      $scope.loading = false;
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
     });
   };
 
   $scope.init = function(){
-    search();
+    if(!$rootScope.matches) {
+      $scope.search();
+    }
   };
 
 }])
@@ -125,7 +136,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
     $http.post('http://127.0.0.1:4568/get_messages', {screen_name: $rootScope.userData.screen_name})
     .success(function(data){
-      // alert('getMessages success');
+      alert('getMessages success');
       $rootScope.conversations = data;
     })
     .error(function(data){

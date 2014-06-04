@@ -2,7 +2,12 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
+  <ion-content class="has-header" ng-hide='loading'>
+
+    <ion-refresher
+      pulling-text="Pull to redo search"
+      on-refresh="search()">
+    </ion-refresher>
 
     <ion-list>
 
@@ -16,8 +21,17 @@
 
   </ion-content>
 
-  <div class="bar bar-footer bar-calm">
-    <div class="title">Search</div>
+
+  <div class="bar bar-footer bar-calm" ng-click='search()' ng-hide='loading'>
+    <div class="title">Redo Search</div>
   </div>
 
+  <div class="bar bar-footer bar-energized" ng-show='loading'>
+    <div class="title">Loading...</div>
+  </div>
+
+<!--   <div class="bar bar-footer bar-energized loading" ng-click='search()' ng-hide='loading'>
+    <div class="title">Loading...</div>
+  </div>
+ -->
 </ion-view>
