@@ -1,7 +1,10 @@
-<ion-view title="{{conversation.match.name}}" hide-back-button="false">
+<ion-view title="{{match.name}}" hide-back-button="false" ng-init='init()'>
   <ion-content id='conversation' class="has-header">
     <!-- <ul class="list"> -->
-    <div class='message' ng-repeat='message in conversation.messages.slice().reverse()'>
+
+    <!-- <div class='message' ng-repeat='message in messages | orderBy:"time":true'> -->
+    <div class='message' ng-repeat='message in messages'>
+  
       <div class='messageIn'>
         <button class="messageInButton button button-light" ng-show='(message.recipient===userData.screen_name)'>
           {{message.text}}
