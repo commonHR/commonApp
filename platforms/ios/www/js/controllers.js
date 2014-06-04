@@ -156,7 +156,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     $scope.getConversationsInterval = $interval(function(){
       // alert('$interval');
       getConversations();
-    }, 1000);
+    }, 10000);
   };
 
   $scope.$on('$destroy', function(event){
