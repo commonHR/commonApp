@@ -5,15 +5,17 @@
     <!-- <div class='message' ng-repeat='message in messages | orderBy:"time":true'> -->
     <div class='message' ng-repeat='message in messages'>
   
-      <div class='messageIn'>
-        <button class="messageInButton button button-light" ng-show='(message.recipient===userData.screen_name)'>
+      <div class='messageIn' ng-show='(message.recipient===userData.screen_name)'>
+        <button class="messageInButton button button-light">
           {{message.text}}
         </button>
+        <p class='timestamp'>{{message.timestamp}}</p>
       </div>
-      <div class='messageOut'>
-        <button class="messageOutButton button button-positive" ng-hide='(message.recipient===userData.screen_name)'>
+      <div class='messageOut' ng-hide='(message.recipient===userData.screen_name)'>
+        <button class="messageOutButton button button-positive">
           {{message.text}}
         </button>
+        <p class='timestamp'>{{message.timestamp}}</p>
       </div>
     </div>
   </ion-content>
@@ -21,7 +23,7 @@
   <div class="newMessageInput bar-footer">
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
-        <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event, newMessageText)' ng-model='newMessageText'>
+        <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event, newMessageText)' ng-model='newMessageText' ng-focus='scrollToBottom()'>
       </label>
       <button class="button button-small" ng-click='doButtonSendMessage(newMessageText)'>
         Send

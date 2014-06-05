@@ -159,6 +159,10 @@ i
 {
   height: 75%;
 }
+.timestamp
+{
+  font-size: 10px;
+}
 .newMessageInput
 { 
   position: fixed;

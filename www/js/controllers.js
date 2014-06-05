@@ -182,6 +182,18 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   $scope.match = $rootScope.conversations[conversationScreenName].match;
   // $scope.messages = $rootScope.conversations[conversationScreenName].messages;
 
+  $scope.scrollToBottom = function(){
+    $ionicScrollDelegate.scrollBottom();    
+  };
+
+  //listen to changes in length of $scope.messages
+  $scope.$watch(function(){
+    return $scope.messages.length;
+  }, function(newV, oldV){
+    alert('messages changed');
+    $scope.scrollToBottom();
+  });
+
   var getConversation = function(){
 
     // alert('getConversation');
@@ -195,7 +207,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       $scope.messages = data.slice().reverse();
-      $ionicScrollDelegate.scrollBottom();
     })
     .error(function(data){
       alert('ERROR: ' + data);
