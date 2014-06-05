@@ -3,32 +3,33 @@
 
     <div class="list card">
 
-      <div class="item item-avatar">
-        <img ng-src="{{match.profile_image_url}}">
-        <h2>{{match.name}}</h2>
-        <p>@{{match.screen_name}}</p>
+      <div id='thumb' class="item item-avatar">
+        <!-- <div class='thumbLeft'> -->
+          <img id='matchPhoto' ng-src="{{match.profile_image_url}}">
+        <!-- </div> -->
+        <!-- <span class='thumbRight'> -->
+          <h2 id='thumbRight'>{{match.name}}</h2>
+          <p id='thumbRight'>@{{match.screen_name}}</p>
+          <h4 id='thumbRight'>{{match.distance}} mi away</h4>
+        <!-- </span> -->
       </div>
 
       <div class="item item-body">
-        <p>{{match.description}}</p>
+        <p ng-show='match.description'>{{match.description}}</p>
 
-        <div class='commonFriends' ng-repeat='friend in match.common_friends'>
-          <button class="button button-positive">
-            @{{friend}}
-          </button>
+        <div ng-show='match.common_friends'>
+          <p>You both follow:</p>
+          <div class='commonFriends' ng-repeat='friend in match.common_friends'>
+            <button class="button button-calm">
+              @{{friend}}
+            </button>
+          </div>
         </div>
 
-      </div>
+        <div>
+          <p>You both tweet about:</p>
+        </div>
 
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-          <i class="icon ion-thumbsup"></i>
-          Back
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-chatbox"></i>
-          Connect
-        </a>
       </div>
 
     </div>
@@ -36,10 +37,15 @@
 
   </ion-content>
 
-
+<!-- 
   <div class="bar bar-footer bar-balanced" ng-click='doConnect()'>
     <div class="title">Connect</div>
   </div>
+ -->
+  <button class="bottomButton button button-balanced" ng-click='doConnect()'>
+    Connect
+  </button>
+
 
   <div class='opaque' ng-show='connectBox'></div>
 

@@ -2,14 +2,21 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
+  <ion-content class="has-header padding">
     <h1>Home</h1>
     <h3>Welcome back, {{userData.name}}!</h3>
 
-  </ion-content>
+    <p>Max Search Dist: {{maxDistance}}</p>
+    <p>Max Search Active Time: {{maxTime}}</p>
 
+  </ion-content>
+<!-- 
   <div class="bar bar-footer bar-assertive">
     <div class="title" ng-click='doLogout()'>Logout</div>
-  </div>
+  </div> -->
+  <button class="bottomButton button button-assertive" ng-click='doLogout()'>
+    Logout
+  </button>
+
 
 </ion-view>

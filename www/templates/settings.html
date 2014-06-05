@@ -1,8 +1,27 @@
-<ion-view title="Settings"  hide-back-button="true">
+<ion-view title="Settings"  hide-back-button="true" ng-init='init()'>
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
-    <h1>Settings</h1>
+
+    <h4>Maximum Search Distance: {{settings.newMaxDistance}} miles</h4> 
+    <div class="range">
+      <i class="icon ion-ios7-navigate-outline"></i>
+      <input type="range" name="maxDistance" min="1" max="10000" ng-model='settings.newMaxDistance'>
+      <i class="icon ion-ios7-navigate"></i>
+    </div>
+
+    <h4>Maximum Last Active Time: {{settings.newMaxTime}} hours</h4>
+    <div class="range">
+      <i class="icon ion-ios7-timer-outline"></i>
+      <input type="range" name="maxTime" min="1" max="10000" ng-model='settings.newMaxTime'>
+      <i class="icon ion-ios7-timer"></i>
+    </div>
+
   </ion-content>
+
+  <div class="bar bar-footer bar-calm">
+    <div class="title" ng-click='doSaveSettings(newMaxDistance, newMaxTime)'>Save Settings</div>
+  </div>
+
 </ion-view>

@@ -22,6 +22,10 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   $scope.doLogin = function(){
     TwitterLib.init().then(function(_data) {
       appLogin();
+
+      $rootScope.maxDistance = 8000;
+      $rootScope.maxTime = 8000;
+
       $state.transitionTo('app.home');
     });
   };
@@ -50,6 +54,8 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     delete $rootScope.userData;
     delete $rootScope.matches;
     delete $rootScope.conversations;
+    delete $rootScope.maxDistance;
+    delete $rootScope.maxTime;
 
     $state.transitionTo('login');
   };
@@ -143,8 +149,9 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
     $http.post('http://127.0.0.1:4568/get_messages', {screen_name: $rootScope.userData.screen_name})
     .success(function(data){
-      alert('getConversations success');
+      // alert('getConversations success');
       $rootScope.conversations = data;
+      $scope.loading = false;
     })
     .error(function(data){
       alert('ERROR: ' + data);
@@ -152,6 +159,9 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.init = function(){
+    if(!$rootScope.conversations){
+      $scope.loading = true;
+    }
     getConversations();
     $scope.getConversationsInterval = $interval(function(){
       // alert('$interval');
@@ -160,13 +170,13 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.$on('$destroy', function(event){
-    alert('leave conversations');
+    // alert('leave conversations');
     $interval.cancel($scope.getConversationsInterval);
   });
 
 }])
 
-.controller('ConversationCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$interval', function($rootScope, $scope, $http, $stateParams, $interval) {
+.controller('ConversationCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$interval', '$ionicScrollDelegate', function($rootScope, $scope, $http, $stateParams, $interval, $ionicScrollDelegate) {
 
   var conversationScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.conversations[conversationScreenName].match;
@@ -185,6 +195,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       $scope.messages = data.slice().reverse();
+      $ionicScrollDelegate.scrollBottom();
     })
     .error(function(data){
       alert('ERROR: ' + data);
@@ -210,6 +221,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
   $scope.init = function(){
     getConversation();
+
     $scope.getConversationInterval = $interval(function(){
       // alert('$interval');
       getConversation();
@@ -231,6 +243,28 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     sendMessage(newMessageText);
     $scope.newMessageText = '';
 
+  };
+
+}])
+.controller('SettingsCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$interval', function($rootScope, $scope, $http, $stateParams, $interval) {
+
+  $scope.init = function(){
+    $scope.settings = {
+      newMaxDistance: $rootScope.maxDistance,
+      newMaxTime: $rootScope.maxTime
+    };
+  };
+
+  // $scope.$watch('settings.newMaxTime', function(){
+  //   alert('changed!');
+  // });
+
+  $scope.doSaveSettings = function(){
+    // alert('doSaveSettings');
+    // alert('newMaxTime: ' + newMaxTime);
+    $rootScope.maxDistance = $scope.settings.newMaxDistance;
+    $rootScope.maxTime = $scope.settings.newMaxTime;
+    // alert('maxTime: ' + $rootScope.maxTime);
   };
 
 }]);

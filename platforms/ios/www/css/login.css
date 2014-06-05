@@ -1,0 +1,23 @@
+.loginPage{
+  text-align: center;
+}
+.loginPage h1:first-child{
+  margin: 20% auto 5% auto;
+  /*margin: 0 auto 0 auto;*/
+  text-align: center;
+  font-family: Dosis, sans-serif;
+  font-size: 72px;
+}
+.logo{
+  width: 100%;
+  margin: 5% auto 5% auto;
+}
+
+.loginButton{
+  margin: 5% auto auto auto;
+  text-align: center;
+}
+
+.hrBanner{
+  margin: 10% auto 0 auto;
+}

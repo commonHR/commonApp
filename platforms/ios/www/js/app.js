@@ -46,15 +46,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-    .state('app.settings', {
-      url: "/settings",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/settings.html"
-        }
-      }
-    })
-
     .state('app.matches', {
       url: "/matches",
       views: {
@@ -91,6 +82,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         'menuContent' :{
           templateUrl: "templates/conversation.html",
           controller: 'ConversationCtrl'
+        }
+      }
+    })
+
+    .state('app.settings', {
+      url: "/settings",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/settings.html",
+          controller: 'SettingsCtrl'
         }
       }
     });

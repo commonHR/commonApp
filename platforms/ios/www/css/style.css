@@ -1,11 +1,58 @@
 /* Empty. Add your own CSS if you like */
-.commonFriends
+body
 {
-  display: inline-block;
+  font-family: Montserrat, sans-serif;
 }
 .loading
 {
   color: red;
+}
+.bottomButton
+{
+  position: fixed;
+  width: 96%;
+  bottom: 2%;
+  left: 2%;
+}
+.commonFriends{
+  display: inline-block;
+}
+.commonFriends > button
+{ 
+  /*display: inline-block;*/
+  text-align: left;
+  margin: 2px;
+  line-height: 24px;
+  
+  min-height: 0px;
+  min-width: 0px;
+  /*max-width: 75%;*/
+
+  padding: 5px;
+  border-radius: 5px;
+}
+/*#thumb
+{
+  width: 100%;
+  display: inline-block;
+}
+.thumbLeft
+{
+  width: 30%;
+}
+*/
+#thumb
+{
+  min-height: 110px;
+}
+#matchPhoto
+{
+  max-width: 80px;
+  max-height: 80px;
+}
+#thumbRight
+{
+  margin-left: 40px;
 }
 .connect
 {
@@ -79,9 +126,15 @@
 { 
   display: inline-block;
   text-align: left;
-  max-width: 75%;
   margin: 2px;
-  line-height: 28px;
+  line-height: 24px;
+  
+  min-height: 0px;
+  min-width: 0px;
+  max-width: 75%;
+
+  padding: 5px;
+  border-radius: 5px;
 }
 #conversation
 {
