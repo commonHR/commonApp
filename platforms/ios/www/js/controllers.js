@@ -149,7 +149,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
     $http.post('http://127.0.0.1:4568/get_messages', {screen_name: $rootScope.userData.screen_name})
     .success(function(data){
-      // alert('getConversations success');
+      alert('getConversations success');
       $rootScope.conversations = data;
       $scope.loading = false;
     })

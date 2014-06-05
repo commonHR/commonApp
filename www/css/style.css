@@ -126,9 +126,10 @@ i
 {
   /*position: relative;*/
   /*position: ;*/
-  margin: 1% 0 1% 0;
+  margin: 0 0 0 0;
   width: 100%;
   /*top: 200px;*/
+  /*background-color: red;*/
 }
 .messageIn, .messageOut
 {
@@ -162,6 +163,12 @@ i
 .timestamp
 {
   font-size: 10px;
+  margin: 1px 2px 1px 2px;
+}
+.bottomPadding
+{
+  height: 5px;
+  background-color: transparent;
 }
 .newMessageInput
 { 
