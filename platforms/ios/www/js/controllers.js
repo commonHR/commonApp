@@ -1,14 +1,17 @@
 angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
-
+.constant('AppConfig', {
+  url: 'http://tweet-up.herokuapp.com/'
+})
 
 .controller('AppCtrl', function($scope) {
 })
 
-.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$state', 'TwitterLib', function($rootScope, $scope, $http, $state, TwitterLib) {
+.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$state', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $http, $state, TwitterLib, AppConfig) {
 
   var appLogin = function(){
-    $http.post('http://127.0.0.1:4568/login', {
+    // $http.post('http://127.0.0.1:4568/login', {
+    $http.post(AppConfig.url + 'login', {
       screen_name: $rootScope.userData.screen_name
     })
     .success(function(data){
@@ -48,6 +51,10 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     doGetLocation();
   };
 
+  $scope.doGoToConversations = function(){
+    $state.go('app.conversations');
+  };
+
   $scope.doLogout = function(){
     TwitterLib.logout();
     //clear all $rootScope variables
@@ -62,7 +69,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('MatchesCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+.controller('MatchesCtrl', ['$rootScope', '$scope', '$http', 'AppConfig', function($rootScope, $scope, $http, AppConfig) {
 
   $scope.loading = false;
 
@@ -70,9 +77,12 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
     $scope.loading = true;
 
-    $http.post('http://127.0.0.1:4568/search', {
+    // $http.post('http://127.0.0.1:4568/search', {
+    $http.post(AppConfig.url + 'search', {
       screen_name: $rootScope.userData.screen_name,
-      current_location: JSON.stringify($rootScope.coords)
+      current_location: JSON.stringify($rootScope.coords),
+      max_distance: $rootScope.maxDistance,
+      max_time: $rootScope.maxTime
     })
     .success(function(data){
       $rootScope.matches = data;
@@ -96,7 +106,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('MatchCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', function($rootScope, $scope, $http, $state, $stateParams) {
+.controller('MatchCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', 'AppConfig', function($rootScope, $scope, $http, $state, $stateParams, AppConfig) {
   
   var matchScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.matches[matchScreenName];
@@ -105,7 +115,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   var sendMessage = function(newMessageText){
     var sender = $rootScope.userData.screen_name;
 
-    $http.post('http://127.0.0.1:4568/send_message', {message: {
+    $http.post(AppConfig.url + 'send_message', {message: {
       sender: sender,
       recipient: matchScreenName,
       text: newMessageText
@@ -128,7 +138,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.doButtonSendMessage = function(newMessageText){
-    alert('send Message');
     sendMessage(newMessageText);
     $scope.connectBox = false;
   };
@@ -143,11 +152,11 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('ConversationsCtrl', ['$rootScope', '$scope', '$http', '$interval', function($rootScope, $scope, $http, $interval) {
+.controller('ConversationsCtrl', ['$rootScope', '$scope', '$http', '$interval' ,'AppConfig', function($rootScope, $scope, $http, $interval, AppConfig) {
 
   var getConversations = function(){
 
-    $http.post('http://127.0.0.1:4568/get_messages', {screen_name: $rootScope.userData.screen_name})
+    $http.post(AppConfig.url + 'get_messages', {screen_name: $rootScope.userData.screen_name})
     .success(function(data){
       alert('getConversations success');
       $rootScope.conversations = data;
@@ -176,7 +185,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('ConversationCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$interval', '$ionicScrollDelegate', function($rootScope, $scope, $http, $stateParams, $interval, $ionicScrollDelegate) {
+.controller('ConversationCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$interval', '$ionicScrollDelegate', 'AppConfig', function($rootScope, $scope, $http, $stateParams, $interval, $ionicScrollDelegate, AppConfig) {
 
   var conversationScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.conversations[conversationScreenName].match;
@@ -201,7 +210,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     var user = $rootScope.userData.screen_name;
     var match = conversationScreenName;
 
-    $http.post('http://127.0.0.1:4568/get_conversation', {
+    $http.post(AppConfig.url + 'get_conversation', {
       user: user,
       match: match,
     })
@@ -216,11 +225,13 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   var sendMessage = function(newMessageText){
     var sender = $rootScope.userData.screen_name;
 
-    $http.post('http://127.0.0.1:4568/send_message', {message: {
-      sender: sender,
-      recipient: conversationScreenName,
-      text: newMessageText
-    }})
+    $http.post(AppConfig.url + 'send_message', {
+      message: {
+        sender: sender,
+        recipient: conversationScreenName,
+        text: newMessageText
+      }
+    })
     .success(function(data){
       getConversation();
       // alert('sendMessage success');
@@ -257,7 +268,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
 }])
-.controller('SettingsCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$interval', function($rootScope, $scope, $http, $stateParams, $interval) {
+.controller('SettingsCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$interval', function($rootScope, $scope, $http, $state, $stateParams, $interval) {
 
   $scope.init = function(){
     $scope.settings = {
@@ -275,6 +286,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     // alert('newMaxTime: ' + newMaxTime);
     $rootScope.maxDistance = $scope.settings.newMaxDistance;
     $rootScope.maxTime = $scope.settings.newMaxTime;
+    $state.go('app.home');
     // alert('maxTime: ' + $rootScope.maxTime);
   };
 

@@ -15,7 +15,7 @@
       </ion-item>
  -->
 
-      <a class="item item-avatar" ng-repeat="conversation in conversations" href="#/app/conversation/{{conversation.match.screen_name}}">
+      <a class="item item-avatar" ng-repeat="conversation in conversations | orderBy:conversation.latest_message_time" href="#/app/conversation/{{conversation.match.screen_name}}">
         <img ng-src="{{conversation.match.profile_image_url}}">
         <h2>{{conversation.match.name}}</h2>
         <p>{{conversation.messages[0].text}}</p>

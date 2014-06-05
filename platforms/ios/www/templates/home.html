@@ -2,8 +2,10 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button menu-toggle="right"class="button button-icon icon ion-chatbubble" ng-click='doGoToConversations()'></button>
+  </ion-nav-buttons>
   <ion-content class="has-header padding">
-    <h1>Home</h1>
     <h3>Welcome back, {{userData.name}}!</h3>
 
     <p>Max Search Dist: {{maxDistance}}</p>
