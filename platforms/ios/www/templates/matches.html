@@ -21,14 +21,25 @@
 
   </ion-content>
 
-
+<!-- 
   <div class="bar bar-footer bar-calm" ng-click='search()' ng-hide='loading'>
     <div class="title">Redo Search</div>
   </div>
+ -->
+  <button class="bottomButton button button-calm" ng-click='search()' ng-hide='loading'>
+    Redo Search
+  </button>
 
-  <div class="bar bar-footer bar-energized" ng-show='loading'>
+  <button class="bottomButton button button-stable" ng-show='loading' disabled>
+    Loading...
+  </button>
+
+<!--   <div id='loading' ng-show='loading'>
     <div class="title">Loading...</div>
-  </div>
+  </div> -->
+
+
+
 
 <!--   <div class="bar bar-footer bar-energized loading" ng-click='search()' ng-hide='loading'>
     <div class="title">Loading...</div>
