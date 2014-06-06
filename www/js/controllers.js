@@ -1,11 +1,25 @@
 angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 .constant('AppConfig', {
-  url: 'http://tweet-up.herokuapp.com/'
+  url: 'http://tweet-up.herokuapp.com/',
+  // url: 'http://127.0.0.1:4568/'
+
 })
 
-.controller('AppCtrl', function($scope) {
-})
+.controller('AppCtrl', ['$rootScope', '$scope', '$state', 'TwitterLib', function($rootScope, $scope, $state, TwitterLib) {
+  $scope.doLogout = function(){
+    TwitterLib.logout();
+    //clear all $rootScope variables
+    delete $rootScope.userData;
+    delete $rootScope.matches;
+    delete $rootScope.conversations;
+    delete $rootScope.conversationsArray;
+    delete $rootScope.maxDistance;
+    delete $rootScope.maxTime;
+
+    $state.transitionTo('login');
+  };
+}])
 
 .controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$state', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $http, $state, TwitterLib, AppConfig) {
 
@@ -22,9 +36,33 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     });
   };
 
+  var getConversations = function(){
+
+    $http.post(AppConfig.url + 'get_messages', {screen_name: $rootScope.userData.screen_name})
+    .success(function(data){
+
+      var messagesCount = 0;
+      $rootScope.conversations = data;
+      $rootScope.conversationsArray = [];
+      for(var key in $rootScope.conversations){
+        $rootScope.conversationsArray.push($rootScope.conversations[key]);
+        messagesCount += $rootScope.conversations[key].messages.length;
+      }
+
+      $rootScope.connectionsCount = $rootScope.conversationsArray.length;
+      $rootScope.messagesCount = messagesCount;
+
+      $scope.loading = false;
+    })
+    .error(function(data){
+      alert('ERROR: ' + data);
+    });
+  };
+
   $scope.doLogin = function(){
     TwitterLib.init().then(function(_data) {
       appLogin();
+      getConversations();
 
       $rootScope.maxDistance = 8000;
       $rootScope.maxTime = 8000;
@@ -35,12 +73,14 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 }])
 
-.controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$http', 'TwitterLib', 'geolocation', function($rootScope, $scope, $state, $http, TwitterLib, geolocation){
+.controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$http', 'TwitterLib', 'geolocation', 'AppConfig', function($rootScope, $scope, $state, $http, TwitterLib, geolocation, AppConfig){
 
   var doGetLocation = function(){
+    // alert('doGetLocation');
     geolocation.getLocation().then(function(data){
       // alert('geo success');
       $rootScope.coords = {latitude: data.coords.latitude.toString(), longitude: data.coords.longitude.toString()};
+      // getConversations();
       // alert(JSON.stringify($rootScope.coords));
     }).error(function(data){
       alert('geo ERROR: ' + data);
@@ -49,6 +89,11 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
   $scope.init = function() {
     doGetLocation();
+  };
+
+  $scope.doGoToSearch = function(){
+    alert('doGoToSearch');
+    $state.go('app.matches');
   };
 
   $scope.doGoToConversations = function(){
@@ -61,6 +106,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     delete $rootScope.userData;
     delete $rootScope.matches;
     delete $rootScope.conversations;
+    delete $rootScope.conversationsArray;
     delete $rootScope.maxDistance;
     delete $rootScope.maxTime;
 
@@ -158,14 +204,25 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
     $http.post(AppConfig.url + 'get_messages', {screen_name: $rootScope.userData.screen_name})
     .success(function(data){
-      // alert('getConversations success');
+
+      var messagesCount = 0;
       $rootScope.conversations = data;
+      $rootScope.conversationsArray = [];
+      for(var key in $rootScope.conversations){
+        $rootScope.conversationsArray.push($rootScope.conversations[key]);
+        messagesCount += $rootScope.conversations[key].messages.length;
+      }
+
+      $rootScope.connectionsCount = $rootScope.conversationsArray.length;
+      $rootScope.messagesCount = messagesCount;
+
       $scope.loading = false;
     })
     .error(function(data){
       alert('ERROR: ' + data);
     });
   };
+
 
   $scope.init = function(){
     if(!$rootScope.conversations){
@@ -189,7 +246,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
   var conversationScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.conversations[conversationScreenName].match;
-  // $scope.messages = $rootScope.conversations[conversationScreenName].messages;
+
 
   $scope.scrollToBottom = function(){
     $ionicScrollDelegate.scrollBottom();    
@@ -216,6 +273,11 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       $scope.messages = data.slice().reverse();
+
+      //speed up yellow color-off
+      // for(var i = 0; i < $rootScope.conversationsArray.length; i++){
+      //   // if($rootScope.conversationsArray[i].read_status[$rootScope.userData.screen_name)
+      // }
     })
     .error(function(data){
       alert('ERROR: ' + data);

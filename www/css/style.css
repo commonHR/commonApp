@@ -26,6 +26,55 @@ i
   opacity: 0.5;
   filter:alpha(opacity=50);
 }
+.counts
+{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  height: 20%;
+}
+.count
+{
+  display: inline-block;
+  text-align: center;
+  width: 40%;
+  height: 100%;
+}
+#countNumberLeft, #countNumberRight
+{
+  /*height: 100px;*/
+  font-family: Dosis, sans-serif;
+  font-size: 72pt;
+  line-height: 90px;
+  /*vertical-align: center;*/
+}
+#countNumberLeft
+{
+  color: rgb(24, 101, 176);
+}
+#countNumberRight
+{
+  color: rgb(255, 0, 0);
+}
+.redLine
+{
+  width: 100%;
+  height: 2px;
+  background-color: red;
+}
+.blueLine
+{
+  width: 100%;
+  height: 2px;
+  background-color: rgb(24, 101, 176);
+}
+.secondBottomButton
+{
+  position: fixed;
+  width: 96%;
+  bottom: 13%;
+  left: 2%;
+}
 .bottomButton
 {
   position: fixed;
@@ -173,7 +222,7 @@ i
 }
 .timestamp
 {
-  font-size: 10px;
+  font-size: 8pt;
   margin: 1px 2px 1px 2px;
 }
 .bottomPadding
@@ -188,4 +237,9 @@ i
   height: 10%;
   left: 0;
   bottom: 0;
+}
+.unread
+{
+  background-color: rgb(246, 255, 168);
+  font-size: 36pt;
 }
