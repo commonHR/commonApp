@@ -1,6 +1,6 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.ionicframework.starter;
+package com.common.Common;
 
 public final class BuildConfig {
-    public final static boolean DEBUG = true;
+    public final static boolean DEBUG = false;
 }

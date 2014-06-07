@@ -17,12 +17,12 @@
        under the License.
  */
 
-package com.ionicframework.starter;
+package com.common.Common;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
 
-public class HelloCordova extends CordovaActivity 
+public class Common extends CordovaActivity 
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
