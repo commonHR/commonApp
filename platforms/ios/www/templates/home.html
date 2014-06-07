@@ -6,14 +6,14 @@
     <button menu-toggle="right"class="button button-icon icon ion-chatbubble" ng-click='doGoToConversations()'></button>
   </ion-nav-buttons>
   <ion-content class="has-header padding">
-    <h4>Welcome back, {{userData.name}}!</h4>
+    <h4>Welcome back, {{userData.screen_name}}!</h4>
     <!-- <p> {{connectionsCount}} friends</p> -->
     <div class='redLine'></div>
     <h4>You now have: </h4>
     <div class='counts'>
       <div class='count'>
         <p id='countNumberLeft'>{{connectionsCount || 0}}</p>
-        <h4>Friends</h4>
+        <h4>Matches</h4>
       </div>
       <div class='count'>
         <p id='countNumberRight'>{{messagesCount || 0}}</p>
