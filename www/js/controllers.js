@@ -92,7 +92,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.doGoToSearch = function(){
-    alert('doGoToSearch');
     $state.go('app.matches');
   };
 

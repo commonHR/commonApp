@@ -9,18 +9,24 @@
 
   <ion-side-menu side="left">
     <header class="bar bar-header bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title"></h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close href="#/app/search">
-          Search
+        <ion-item nav-clear menu-close href="#/app/home">
+          <i class='ion-home'></i> Home
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
-          Browse
+        <ion-item nav-clear menu-close href="#/app/matches">
+          <i class='ion-person-stalker'></i> Matches
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/playlists">
-          Playlists
+        <ion-item nav-clear menu-close href="#/app/conversations">
+          <i class='ion-chatbubbles'></i> Conversations
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/settings">
+          <i class='ion-gear-b'></i> Settings
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click='doLogout()'>
+          <i class='ion-log-out'></i> Logout
         </ion-item>
       </ion-list>
     </ion-content>

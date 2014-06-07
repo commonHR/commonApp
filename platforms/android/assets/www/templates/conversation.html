@@ -1,0 +1,36 @@
+<ion-view title="{{match.name}}" hide-back-button="false" ng-init='init()'>
+  <ion-content id='conversation' class="has-header padding">
+    <!-- <ul class="list"> -->
+
+    <!-- <div class='message' ng-repeat='message in messages | orderBy:"time":true'> -->
+    <div class='message' ng-repeat='message in messages'>
+  
+      <div class='messageIn' ng-show='(message.recipient===userData.screen_name)'>
+        <button class="messageInButton button button-light">
+          {{message.text}}
+        </button>
+        <p class='timestamp'>{{message.timestamp}}</p>
+      </div>
+      <div class='messageOut' ng-hide='(message.recipient===userData.screen_name)'>
+        <button class="messageOutButton button button-positive">
+          {{message.text}}
+        </button>
+        <p class='timestamp'>{{message.timestamp}}</p>
+      </div>
+    </div>
+    <div class='bottomPadding'></div>
+  </ion-content>
+
+  <div class="newMessageInput bar-footer">
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event, newMessageText)' ng-model='newMessageText' ng-focus='scrollToBottom()'>
+      </label>
+      <button class="button button-small" ng-click='doButtonSendMessage(newMessageText)'>
+        Send
+      </button>
+    </div>
+
+  </div>
+
+</ion-view>

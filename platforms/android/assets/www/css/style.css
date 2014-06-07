@@ -1,1 +1,245 @@
 /* Empty. Add your own CSS if you like */
+body, button, h1, h2, h3, h4, p
+{
+  /*font-family: 'Montserrat', sans-serif;*/
+  font-family: 'Roboto', sans-serif;
+}
+h1,h2,h3,h4{
+  font-weight: 700;
+}
+button{
+  font-size: 300;
+}
+i
+{
+  position: relative;
+  font-size: 1.5em;
+  top: 0.15em;
+}
+#loading
+{
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  opacity: 0.5;
+  filter:alpha(opacity=50);
+}
+.counts
+{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  height: 20%;
+}
+.count
+{
+  display: inline-block;
+  text-align: center;
+  width: 40%;
+  height: 100%;
+}
+#countNumberLeft, #countNumberRight
+{
+  /*height: 100px;*/
+  font-family: Dosis, sans-serif;
+  font-size: 72pt;
+  line-height: 90px;
+  /*vertical-align: center;*/
+}
+#countNumberLeft
+{
+  color: rgb(24, 101, 176);
+}
+#countNumberRight
+{
+  color: rgb(255, 0, 0);
+}
+.redLine
+{
+  width: 100%;
+  height: 2px;
+  background-color: red;
+}
+.blueLine
+{
+  width: 100%;
+  height: 2px;
+  background-color: rgb(24, 101, 176);
+}
+.secondBottomButton
+{
+  position: fixed;
+  width: 96%;
+  bottom: 13%;
+  left: 2%;
+}
+.bottomButton
+{
+  position: fixed;
+  width: 96%;
+  bottom: 2%;
+  left: 2%;
+}
+.loading
+{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: red;
+  color: black;
+  opacity: 0.3;
+}
+.commonFriends{
+  display: inline-block;
+}
+.commonFriends > button
+{ 
+  /*display: inline-block;*/
+  text-align: left;
+  margin: 2px;
+  line-height: 24px;
+  
+  min-height: 0px;
+  min-width: 0px;
+  /*max-width: 75%;*/
+
+  padding: 5px;
+  border-radius: 5px;
+}
+/*#thumb
+{
+  width: 100%;
+  display: inline-block;
+}
+.thumbLeft
+{
+  width: 30%;
+}
+*/
+#thumb
+{
+  min-height: 110px;
+}
+#matchPhoto
+{
+  max-width: 80px;
+  max-height: 80px;
+}
+#thumbRight
+{
+  margin-left: 40px;
+}
+.connect
+{
+  position: fixed;
+  width: 100%;
+  height: 30%;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 5px;
+
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.connectInput
+{
+  width: 96%;
+  left: 2%;
+
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.opaque
+{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  opacity: 0.5;
+}
+
+#leftHalf
+{
+  width: 50%;
+}
+
+#rightHalf
+{
+  width: 50%;
+  left: 50%;
+}
+
+.message
+{
+  /*position: relative;*/
+  /*position: ;*/
+  margin: 0 0 0 0;
+  width: 100%;
+  /*top: 200px;*/
+  /*background-color: red;*/
+}
+.messageIn, .messageOut
+{
+  position: relative;
+  width: 100%;
+}
+.messageIn{
+  text-align: left;
+}
+.messageOut{
+  text-align: right;
+}
+.messageInButton, .messageOutButton
+{ 
+  display: inline-block;
+  text-align: left;
+  margin: 2px;
+  line-height: 24px;
+  
+  min-height: 0px;
+  min-width: 0px;
+  max-width: 75%;
+
+  padding: 5px;
+  border-radius: 5px;
+}
+#conversation
+{
+  height: 75%;
+}
+.timestamp
+{
+  font-size: 8pt;
+  margin: 1px 2px 1px 2px;
+}
+.bottomPadding
+{
+  height: 5px;
+  background-color: transparent;
+}
+.newMessageInput
+{ 
+  position: fixed;
+  width: 100%;
+  height: 10%;
+  left: 0;
+  bottom: 0;
+}
+.unread
+{
+  background-color: rgb(246, 255, 168);
+  font-size: 36pt;
+}
