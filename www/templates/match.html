@@ -26,8 +26,13 @@
           </div>
         </div>
 
-        <div>
+        <div ng-show='match.common_words'>
           <p>You both tweet about:</p>
+          <div class='commonFriends' ng-repeat='word in match.common_words'>
+            <button class="button button-balanced">
+              {{word}}
+            </button>
+          </div>
         </div>
 
       </div>

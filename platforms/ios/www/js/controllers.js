@@ -1,8 +1,8 @@
 angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 .constant('AppConfig', {
-  url: 'http://tweet-up.herokuapp.com/',
-  // url: 'http://127.0.0.1:4568/'
+  // url: 'http://tweet-up.herokuapp.com/',
+  url: 'http://127.0.0.1:4568/'
 
 })
 
@@ -92,7 +92,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.doGoToSearch = function(){
-    alert('doGoToSearch');
     $state.go('app.matches');
   };
 
@@ -156,6 +155,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   
   var matchScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.matches[matchScreenName];
+  alert($scope.match.common_words);
   $scope.connectBox = false;
 
   var sendMessage = function(newMessageText){
