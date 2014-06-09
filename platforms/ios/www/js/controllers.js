@@ -6,7 +6,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 })
 
 .controller('AppCtrl', ['$rootScope', '$scope', '$state', 'TwitterLib', function($rootScope, $scope, $state, TwitterLib) {
-  $scope.doLogout = function(){
+  $scope.logout = function(){
     TwitterLib.logout();
     //clear all $rootScope variables
     delete $rootScope.userData;
@@ -23,10 +23,9 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 .controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$state', 'geolocation', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $http, $state, geolocation, TwitterLib, AppConfig) {
 
   var getLocation = function(){
-    alert('getLocation');
     geolocation.getLocation().then(function(data){
       $rootScope.coords = {latitude: data.coords.latitude.toString(), longitude: data.coords.longitude.toString()};
-      alert('geo success');
+      console.log('geolocation success');
     }).error(function(data){
       alert('geo ERROR: ' + data);
     });
@@ -69,7 +68,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     });
   };
 
-  $scope.doLogin = function(){
+  $scope.login = function(){
     TwitterLib.init().then(function(_data) {
       appLogin();
       getConversations();
@@ -85,15 +84,15 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 .controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$http', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $state, $http, TwitterLib, AppConfig){
 
-  $scope.doGoToSearch = function(){
+  $scope.goToSearch = function(){
     $state.go('app.matches');
   };
 
-  $scope.doGoToConversations = function(){
+  $scope.goToConversations = function(){
     $state.go('app.conversations');
   };
 
-  $scope.doLogout = function(){
+  $scope.logout = function(){
     TwitterLib.logout();
 
     //clear all $rootScope variables
