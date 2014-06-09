@@ -4,19 +4,14 @@
     <div class="list card">
 
       <div id='thumb' class="item item-avatar">
-        <!-- <div class='thumbLeft'> -->
-          <img id='matchPhoto' ng-src="{{match.profile_image_url}}">
-        <!-- </div> -->
-        <!-- <span class='thumbRight'> -->
-          <h2 id='thumbRight'>{{match.name}}</h2>
-          <p id='thumbRight'>@{{match.screen_name}}</p>
-          <h4 id='thumbRight'>{{match.distance}} mi away</h4>
-        <!-- </span> -->
+        <img id='matchPhoto' ng-src="{{match.profile_image_url}}">
+        <h2 id='thumbRight'>{{match.name}}</h2>
+        <p id='thumbRight'>@{{match.screen_name}}</p>
+        <h4 id='thumbRight'>{{match.distance}} mi away</h4>
       </div>
 
       <div class="item item-body">
-<!--         <p ng-show='match.description'>{{match.description}}</p>
- -->
+
         <div ng-show='match.common_friends'>
           <p>You both follow:</p>
           <div class='commonFriends' ng-repeat='friend in match.common_friends'>
@@ -36,25 +31,18 @@
         </div>
 
       </div>
-
     </div>
-
 
   </ion-content>
 
-<!-- 
-  <div class="bar bar-footer bar-balanced" ng-click='doConnect()'>
-    <div class="title">Connect</div>
-  </div>
- -->
   <button class="bottomButton button button-balanced" ng-click='doConnect()'>
     <i class='ion-paper-airplane'></i> Connect
   </button>
 
-
   <div class='opaque' ng-show='connectBox'></div>
 
   <div class='connect' ng-show='connectBox'>
+
     <p>Send a message to your new friend!</p>
     <input class='connectInput' type='text' placeholder='...' ng-model='newMessageText'>
     <span id='leftHalf' class="bar bar-footer bar-assertive" ng-click='closeConnect()'>
@@ -63,6 +51,7 @@
     <span id='rightHalf' class="bar bar-footer bar-calm" ng-click='doButtonSendMessage(newMessageText)'>
       <div class="title">Send</div>
     </span>
+  
   </div>
-
+  
 </ion-view>

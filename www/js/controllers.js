@@ -3,7 +3,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 .constant('AppConfig', {
   url: 'http://tweet-up.herokuapp.com/',
   // url: 'http://127.0.0.1:4568/'
-
 })
 
 .controller('AppCtrl', ['$rootScope', '$scope', '$state', 'TwitterLib', function($rootScope, $scope, $state, TwitterLib) {
@@ -17,19 +16,28 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     delete $rootScope.maxDistance;
     delete $rootScope.maxTime;
 
-    $state.transitionTo('login');
+    $state.go('login');
   };
 }])
 
-.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$state', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $http, $state, TwitterLib, AppConfig) {
+.controller('LoginCtrl', ['$rootScope', '$scope', '$http', '$state', 'geolocation', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $http, $state, geolocation, TwitterLib, AppConfig) {
+
+  var getLocation = function(){
+    geolocation.getLocation().then(function(data){
+      $rootScope.coords = {latitude: data.coords.latitude.toString(), longitude: data.coords.longitude.toString()};
+      console.log('geolocation success');
+    }).error(function(data){
+      alert('geo ERROR: ' + data);
+    });
+  };
 
   var appLogin = function(){
-    // $http.post('http://127.0.0.1:4568/login', {
     $http.post(AppConfig.url + 'login', {
       screen_name: $rootScope.userData.screen_name
     })
     .success(function(data){
-      // alert('login success');
+      console.log('login success');
+      getLocation();
     })
     .error(function(data){
       alert('login ERROR: ' + data);
@@ -53,6 +61,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
       $rootScope.messagesCount = messagesCount;
 
       $scope.loading = false;
+
     })
     .error(function(data){
       alert('ERROR: ' + data);
@@ -67,29 +76,13 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
       $rootScope.maxDistance = 8000;
       $rootScope.maxTime = 8000;
 
-      $state.transitionTo('app.home');
+      $state.go('app.home');
     });
   };
 
 }])
 
-.controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$http', 'TwitterLib', 'geolocation', 'AppConfig', function($rootScope, $scope, $state, $http, TwitterLib, geolocation, AppConfig){
-
-  var doGetLocation = function(){
-    // alert('doGetLocation');
-    geolocation.getLocation().then(function(data){
-      // alert('geo success');
-      $rootScope.coords = {latitude: data.coords.latitude.toString(), longitude: data.coords.longitude.toString()};
-      // getConversations();
-      // alert(JSON.stringify($rootScope.coords));
-    }).error(function(data){
-      alert('geo ERROR: ' + data);
-    });
-  };
-
-  $scope.init = function() {
-    doGetLocation();
-  };
+.controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$http', 'TwitterLib', 'AppConfig', function($rootScope, $scope, $state, $http, TwitterLib, AppConfig){
 
   $scope.doGoToSearch = function(){
     $state.go('app.matches');
@@ -101,6 +94,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
   $scope.doLogout = function(){
     TwitterLib.logout();
+
     //clear all $rootScope variables
     delete $rootScope.userData;
     delete $rootScope.matches;
@@ -109,7 +103,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     delete $rootScope.maxDistance;
     delete $rootScope.maxTime;
 
-    $state.transitionTo('login');
+    $state.go('login');
   };
 
 }])
@@ -122,7 +116,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
     $scope.loading = true;
 
-    // $http.post('http://127.0.0.1:4568/search', {
     $http.post(AppConfig.url + 'search', {
       screen_name: $rootScope.userData.screen_name,
       current_location: JSON.stringify($rootScope.coords),
@@ -131,7 +124,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       $rootScope.matches = data;
-      // alert('search success');
     })
     .error(function(data){
       alert('ERROR: ' + data);
@@ -142,12 +134,11 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
       $scope.$broadcast('scroll.refreshComplete');
     });
   };
-
-  $scope.init = function(){
-    if(!$rootScope.matches) {
-      $scope.search();
-    }
-  };
+  
+  //on load
+  if(!$rootScope.matches) {
+    $scope.search();
+  }
 
 }])
 
@@ -167,7 +158,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
       text: newMessageText
     }})
     .success(function(data){
-      // alert('sendMessage success');
+      console.log('sendMessage success');
     })
     .error(function(data){
       alert('ERROR: ' + data);
@@ -175,7 +166,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   $scope.doConnect = function(){
-    // $state.go('app.connect', {screen_name: matchScreenName});
     $scope.connectBox = true;
   };
 
@@ -187,14 +177,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     sendMessage(newMessageText);
     $scope.connectBox = false;
   };
-
-}])
-
-.controller('ConnectCtrl', ['$rootScope', '$scope', '$stateParams', function($rootScope, $scope, $stateParams) {
-  
-  var matchScreenName = $stateParams.screen_name;
-  $scope.match = $rootScope.matches[matchScreenName];
-  console.log($scope.match);
 
 }])
 
@@ -223,22 +205,18 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     });
   };
 
-
-  $scope.init = function(){
-    if(!$rootScope.conversations){
-      $scope.loading = true;
-    }
-    getConversations();
-    $scope.getConversationsInterval = $interval(function(){
-      // alert('$interval');
-      getConversations();
-    }, 10000);
-  };
-
   $scope.$on('$destroy', function(event){
-    // alert('leave conversations');
     $interval.cancel($scope.getConversationsInterval);
   });
+  
+  //on load
+  if(!$rootScope.conversations){
+    $scope.loading = true;
+  }
+  getConversations();
+  $scope.getConversationsInterval = $interval(function(){
+    getConversations();
+  }, 10000);
 
 }])
 
@@ -252,17 +230,14 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     $ionicScrollDelegate.scrollBottom();    
   };
 
-  //listen to changes in length of $scope.messages
+  //listen to changes in length of $scope.messages; scroll to bottom for new messages
   $scope.$watch(function(){
     return $scope.messages.length;
   }, function(newV, oldV){
-    // alert('messages changed');
     $scope.scrollToBottom();
   });
 
   var getConversation = function(){
-
-    // alert('getConversation');
 
     var user = $rootScope.userData.screen_name;
     var match = conversationScreenName;
@@ -273,11 +248,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       $scope.messages = data.slice().reverse();
-
-      //speed up yellow color-off
-      // for(var i = 0; i < $rootScope.conversationsArray.length; i++){
-      //   // if($rootScope.conversationsArray[i].read_status[$rootScope.userData.screen_name)
-      // }
     })
     .error(function(data){
       alert('ERROR: ' + data);
@@ -285,6 +255,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   };
 
   var sendMessage = function(newMessageText){
+
     var sender = $rootScope.userData.screen_name;
 
     $http.post(AppConfig.url + 'send_message', {
@@ -296,25 +267,22 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     })
     .success(function(data){
       getConversation();
-      // alert('sendMessage success');
     })
     .error(function(data){
       alert('ERROR: ' + data);
     });
   };
 
-  $scope.init = function(){
-    getConversation();
-
-    $scope.getConversationInterval = $interval(function(){
-      // alert('$interval');
-      getConversation();
-    }, 1000);
-  };
-  
   $scope.$on('$destroy', function(event){
     $interval.cancel($scope.getConversationInterval);
   });
+
+  //on load
+  getConversation();
+
+  $scope.getConversationInterval = $interval(function(){
+    getConversation();
+  }, 1000);
 
   $scope.doInputSendMessage = function(event, newMessageText){
     if(event.keyCode === 13){
@@ -326,30 +294,20 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   $scope.doButtonSendMessage = function(newMessageText){
     sendMessage(newMessageText);
     $scope.newMessageText = '';
-
   };
 
 }])
 .controller('SettingsCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$interval', function($rootScope, $scope, $http, $state, $stateParams, $interval) {
 
-  $scope.init = function(){
-    $scope.settings = {
-      newMaxDistance: $rootScope.maxDistance,
-      newMaxTime: $rootScope.maxTime
-    };
-  };
-
-  // $scope.$watch('settings.newMaxTime', function(){
-  //   alert('changed!');
-  // });
-
   $scope.doSaveSettings = function(){
-    // alert('doSaveSettings');
-    // alert('newMaxTime: ' + newMaxTime);
     $rootScope.maxDistance = $scope.settings.newMaxDistance;
     $rootScope.maxTime = $scope.settings.newMaxTime;
     $state.go('app.home');
-    // alert('maxTime: ' + $rootScope.maxTime);
   };
-
+  //on load
+  $scope.settings = {
+    newMaxDistance: $rootScope.maxDistance,
+    newMaxTime: $rootScope.maxTime
+  };
+  
 }]);
