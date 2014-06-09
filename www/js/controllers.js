@@ -1,8 +1,8 @@
 angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 
 .constant('AppConfig', {
-  // url: 'http://tweet-up.herokuapp.com/',
-  url: 'http://127.0.0.1:4568/'
+  url: 'http://tweet-up.herokuapp.com/',
+  // url: 'http://127.0.0.1:4568/'
 
 })
 
