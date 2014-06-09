@@ -24,9 +24,9 @@
   
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
-        <input type="text" placeholder="New Message" ng-keydown='doInputSendMessage(event, newMessageText)' ng-model='newMessageText' ng-focus='scrollToBottom()'>
+        <input type="text" placeholder="New Message" ng-keydown='inputSendMessage(event, newMessageText)' ng-model='newMessageText' ng-focus='scrollToBottom()'>
       </label>
-      <button class="button button-small" ng-click='doButtonSendMessage(newMessageText)'>
+      <button class="button button-small" ng-click='buttonSendMessage(newMessageText)'>
         Send
       </button>
     </div>

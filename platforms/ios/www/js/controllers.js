@@ -146,7 +146,6 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   
   var matchScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.matches[matchScreenName];
-  // alert($scope.match.common_words);
   $scope.connectBox = false;
 
   var sendMessage = function(newMessageText){
@@ -165,7 +164,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     });
   };
 
-  $scope.doConnect = function(){
+  $scope.openConnect = function(){
     $scope.connectBox = true;
   };
 
@@ -173,7 +172,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     $scope.connectBox = false;
   };
 
-  $scope.doButtonSendMessage = function(newMessageText){
+  $scope.sendMessage = function(newMessageText){
     sendMessage(newMessageText);
     $scope.connectBox = false;
   };
@@ -284,14 +283,14 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
     getConversation();
   }, 1000);
 
-  $scope.doInputSendMessage = function(event, newMessageText){
+  $scope.inputSendMessage = function(event, newMessageText){
     if(event.keyCode === 13){
       sendMessage(newMessageText);
     }
     $scope.newMessageText = '';
   };
 
-  $scope.doButtonSendMessage = function(newMessageText){
+  $scope.buttonSendMessage = function(newMessageText){
     sendMessage(newMessageText);
     $scope.newMessageText = '';
   };
@@ -299,7 +298,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
 }])
 .controller('SettingsCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$interval', function($rootScope, $scope, $http, $state, $stateParams, $interval) {
 
-  $scope.doSaveSettings = function(){
+  $scope.saveSettings = function(){
     $rootScope.maxDistance = $scope.settings.newMaxDistance;
     $rootScope.maxTime = $scope.settings.newMaxTime;
     $state.go('app.home');

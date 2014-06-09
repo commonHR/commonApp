@@ -35,7 +35,7 @@
 
   </ion-content>
 
-  <button class="bottomButton button button-balanced" ng-click='doConnect()'>
+  <button class="bottomButton button button-balanced" ng-click='openConnect()'>
     <i class='ion-paper-airplane'></i> Connect
   </button>
 
@@ -48,7 +48,7 @@
     <span id='leftHalf' class="bar bar-footer bar-assertive" ng-click='closeConnect()'>
       <div class="title">Cancel</div>
     </span>
-    <span id='rightHalf' class="bar bar-footer bar-calm" ng-click='doButtonSendMessage(newMessageText)'>
+    <span id='rightHalf' class="bar bar-footer bar-calm" ng-click='sendMessage(newMessageText)'>
       <div class="title">Send</div>
     </span>
   
