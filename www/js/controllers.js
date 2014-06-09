@@ -155,7 +155,7 @@ angular.module('starter.controllers', ['twitterLib', 'geolocation'])
   
   var matchScreenName = $stateParams.screen_name;
   $scope.match = $rootScope.matches[matchScreenName];
-  alert($scope.match.common_words);
+  // alert($scope.match.common_words);
   $scope.connectBox = false;
 
   var sendMessage = function(newMessageText){
